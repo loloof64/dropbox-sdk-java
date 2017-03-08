@@ -1,5 +1,7 @@
 package com.dropbox.core.http;
 
+import com.dropbox.core.util.IOUtil;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,8 +12,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import com.dropbox.core.util.IOUtil;
 
 /*>>> import checkers.nullness.quals.Nullable; */
 
@@ -94,11 +94,6 @@ public class StandardHttpRequestor extends HttpRequestor {
      * requests using https. Typically the connection will be a {@link
      * javax.net.ssl.HttpsURLConnection}, but that is dependent on the Java runtime. Care should be
      * taken when casting the connection (check your JRE).
-     *
-     * <p> If you are using Google App Engine, configure your {@link
-     * com.dropbox.core.DbxRequestConfig} to use {@link GoogleAppEngineRequestor} as its default
-     * {@code HttpRequestor}. If you use {@link StandardHttpRequestor} in Google App Engine, SSL
-     * certificates may not be validated and your app will susceptible to Man-in-the-Middle attacks.
      *
      * @param conn URL connection object returned after creating an https network request.
      */
@@ -225,14 +220,6 @@ public class StandardHttpRequestor extends HttpRequestor {
      *
      * Use this class to configure timeouts and proxy settings.
      *
-     * Some requests may require different connection settings than
-     * others. Create multiple {@link StandardHttpRequestor} objects
-     * with different configurations to handle these requests. For
-     * example, calls to {@link
-     * com.dropbox.core.v2.files.DbxUserFilesRequests#listFolderLongpoll(String,long)} should
-     * use a {@code StandardHttpRequestor} with its read timeout (see
-     * {@link Builder#withReadTimeout}) set longer than the longpoll
-     * timeout.
      */
     public static final class Config {
         /**
