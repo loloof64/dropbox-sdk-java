@@ -1,3 +1,23 @@
+# An 'OAuth-only' fork of the Dropbox API
+
+This is a fork of [the official Dropbox Core SDK](https://github.com/dropbox/dropbox-sdk-java). It only includes the minimum amount of code needed to obtain an access token. Everything else has been removed to reduce the method count.
+
+The generated JAR file contains **just 226 methods**. By comparison: the full SDK contains more then 13,000 methods.
+
+1. Generate the JAR file:
+```
+./gradlew jar
+```
+2. Copy the generated JAR file from /build/libs into the libs directory of your Android project.
+3. In your app, start the OAuth flow:
+```
+Auth.startOAuth2Authentication(getContext(), BuildConfig.DROPBOX_APP_KEY);
+```
+4. And grab the token afterwards:
+```
+String token = Auth.getOAuth2Token()
+```
+
 # Dropbox Core SDK for Java 6+
 
 A Java library to access [Dropbox's HTTP-based Core API v2](https://www.dropbox.com/developers/documentation/http/documentation).  This SDK also supports the older [Core API v1](https://www.dropbox.com/developers-v1/core/docs), but that support will be removed at some point.
