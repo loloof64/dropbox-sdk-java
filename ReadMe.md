@@ -1,3 +1,7 @@
+# Simplified Dropbox SDK for Java
+
+This is a fork of https://github.com/litrik/dropbox-sdk-java, in order to be able to generate artifact on [Jitpack](https://jitpack.io/).
+
 # An 'OAuth-only' fork of the Dropbox API
 
 This is a fork of [the official Dropbox Core SDK](https://github.com/dropbox/dropbox-sdk-java). It only includes the minimum amount of code needed to obtain an access token. Everything else has been removed to reduce the method count.
