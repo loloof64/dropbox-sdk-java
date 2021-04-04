@@ -43,7 +43,7 @@ def runStoneGenerator(StoneConfig config,
     if (config.dataTypesOnly) {
         project.exec {
             standardOutput = new FileOutputStream(logFile)
-            commandLine "pip", "install", "six"
+            commandLine "easy_install", "six"
             environment PYTHONPATH: stoneDir.absolutePath
         }
 
@@ -77,7 +77,7 @@ def runStoneGenerator(StoneConfig config,
 
         project.exec {
             standardOutput = new FileOutputStream(logFile)
-            commandLine "pip", "install", "six"
+            commandLine "easy_install", "six"
             environment PYTHONPATH: stoneDir.absolutePath
         }
 
