@@ -300,7 +300,7 @@ dependencyUpdates.resolutionStrategy = {
 }
 
 /* BEGIN PRIVATE REPO ONLY */
-apply from: 'stone.gradle'
+//apply from: 'stone.gradle'
 
 // load release configuration
 if (!project.version.contains('SNAPSHOT')) {
