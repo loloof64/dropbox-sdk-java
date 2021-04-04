@@ -71,6 +71,7 @@ def runStoneGenerator(StoneConfig config,
 
         project.exec {
             standardOutput = new FileOutputStream(logFile, append)
+            commandLine "pip", "install", "six"
             commandLine "python", "-m", "stone.cli"
 
             environment PYTHONPATH: stoneDir.absolutePath
