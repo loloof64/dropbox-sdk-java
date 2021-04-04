@@ -44,6 +44,11 @@ def runStoneGenerator(StoneConfig config,
         project.exec {
             standardOutput = new FileOutputStream(logFile)
             commandLine "python", "-m", "pip", "install", "six"
+            environment PYTHONPATH: stoneDir.absolutePath
+        }
+
+        project.exec {
+            standardOutput = new FileOutputStream(logFile)
             commandLine "python", "-m", "stone.cli"
 
             environment PYTHONPATH: stoneDir.absolutePath
@@ -71,8 +76,13 @@ def runStoneGenerator(StoneConfig config,
             .join " and "
 
         project.exec {
-            standardOutput = new FileOutputStream(logFile, append)
+            standardOutput = new FileOutputStream(logFile)
             commandLine "python", "-m", "pip", "install", "six"
+            environment PYTHONPATH: stoneDir.absolutePath
+        }
+
+        project.exec {
+            standardOutput = new FileOutputStream(logFile, append)
             commandLine "python", "-m", "stone.cli"
 
             environment PYTHONPATH: stoneDir.absolutePath
