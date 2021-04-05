@@ -235,9 +235,14 @@ public class AuthActivity extends Activity {
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(testIntent, 0);
 
+        //// added by loloof64
+        System.out.println("Registered activities count : " + activities.size());
+        //////////////////////////////////////////
+
         if (null == activities || 0 == activities.size()) {
             throw new IllegalStateException("You should have a " +
                     AuthActivity.class.getName()+" in your manifest.");
+       /* (removed by loloof64)
         } else if (activities.size() > 1) {
             if (alertUser) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -259,21 +264,19 @@ public class AuthActivity extends Activity {
                         " impersonate this app, so authentication will be disabled.");
             }
             return false;
+        */
         } else {
-            // Just one activity registered. Now make sure
+            // At least one activity registered. Now make sure
             // it's within the same package so when we return from web auth
             // we're going back to this app and not some other app.
-            ResolveInfo resolveInfo = activities.get(0);
-            if (null == resolveInfo || null == resolveInfo.activityInfo
-                    || !context.getPackageName().equals(resolveInfo.activityInfo.packageName)) {
-                throw new IllegalStateException("There must be a " +
-                        AuthActivity.class.getName() + " within your app's package. However, " +
-                        "it appears that there is already an activity in a different package registered. If you have " +
-                        "multiple apps that all want to use the same access" +
-                        "token pair, designate one of them to do " +
-                        "authentication and have the other apps launch it " +
-                        "and then retrieve the token pair from it.");
+            for (ResolveInfo resolveInfo: activities) {
+                if (null != resolveInfo && null != resolveInfo.activityInfo
+                    && context.getPackageName().equals(resolveInfo.activityInfo.packageName)) {
+                        break;
+                }
             }
+            throw new IllegalStateException("There must be a " +
+                        AuthActivity.class.getName() + " within your app's package.");
         }
 
         return true;
@@ -490,9 +493,9 @@ public class AuthActivity extends Activity {
         PackageManager manager = getPackageManager();
 
         List<ResolveInfo> infos = manager.queryIntentActivities(intent, 0);
-        if (null == infos || 1 != infos.size()) {
+        if (null == infos /*(removed by loloof64) || 1 != infos.size()*/) {
             // The official app doesn't exist, or only an older version
-            // is available, or multiple activities are confusing us.
+            // is available.
             return false;
         } else {
             // The official app exists. Make sure it's the correct one by
