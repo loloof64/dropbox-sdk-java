@@ -236,10 +236,8 @@ public class AuthActivity extends Activity {
         List<ResolveInfo> activities = pm.queryIntentActivities(testIntent, 0);
 
         if (null == activities || 0 == activities.size()) {
-            throw new IllegalStateException("URI scheme in your app's " +
-                    "manifest is not set up correctly. You should have a " +
-                    AuthActivity.class.getName() + " with the " +
-                    "scheme: " + scheme);
+            throw new IllegalStateException("You should have a " +
+                    AuthActivity.class.getName()+" in your manifest.");
         } else if (activities.size() > 1) {
             if (alertUser) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -257,23 +255,20 @@ public class AuthActivity extends Activity {
                 });
                 builder.show();
             } else {
-                Log.w(TAG, "There are multiple apps registered for the AuthActivity " +
-                        "URI scheme (" + scheme + ").  Another app may be trying to " +
+                Log.w(TAG, "There are multiple apps registered for the AuthActivity.  Another app may be trying to " +
                         " impersonate this app, so authentication will be disabled.");
             }
             return false;
         } else {
-            // Just one activity registered for the URI scheme. Now make sure
+            // Just one activity registered. Now make sure
             // it's within the same package so when we return from web auth
             // we're going back to this app and not some other app.
             ResolveInfo resolveInfo = activities.get(0);
             if (null == resolveInfo || null == resolveInfo.activityInfo
                     || !context.getPackageName().equals(resolveInfo.activityInfo.packageName)) {
                 throw new IllegalStateException("There must be a " +
-                        AuthActivity.class.getName() + " within your app's package " +
-                        "registered for your URI scheme (" + scheme + "). However, " +
-                        "it appears that an activity in a different package is " +
-                        "registered for that scheme instead. If you have " +
+                        AuthActivity.class.getName() + " within your app's package. However, " +
+                        "it appears that there is already an activity in a different package registered. If you have " +
                         "multiple apps that all want to use the same access" +
                         "token pair, designate one of them to do " +
                         "authentication and have the other apps launch it " +
