@@ -236,7 +236,7 @@ public class AuthActivity extends Activity {
         List<ResolveInfo> activities = pm.queryIntentActivities(testIntent, 0);
 
         //// added by loloof64
-        System.out.println("Registered activities count : " + activities.size());
+        System.out.println("Registered Dropbox activities count : " + activities.size());
         //////////////////////////////////////////
 
         if (null == activities || 0 == activities.size()) {
@@ -272,14 +272,12 @@ public class AuthActivity extends Activity {
             for (ResolveInfo resolveInfo: activities) {
                 if (null != resolveInfo && null != resolveInfo.activityInfo
                     && context.getPackageName().equals(resolveInfo.activityInfo.packageName)) {
-                        break;
+                        return true;
                 }
             }
             throw new IllegalStateException("There must be a " +
                         AuthActivity.class.getName() + " within your app's package.");
         }
-
-        return true;
     }
 
     /**
