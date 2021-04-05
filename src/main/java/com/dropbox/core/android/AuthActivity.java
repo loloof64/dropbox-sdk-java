@@ -227,9 +227,11 @@ public class AuthActivity extends Activity {
     public static boolean checkAppBeforeAuth(Context context, String appKey, boolean alertUser) {
         // Check if the app has set up its manifest properly.
         Intent testIntent = new Intent(Intent.ACTION_VIEW);
+        /* Removed by loloof64 : we should not be forced to give appKey in the Android Manifest
         String scheme = "db-" +appKey;
         String uri = scheme + "://" + AUTH_VERSION + AUTH_PATH_CONNECT;
         testIntent.setData(Uri.parse(uri));
+        */
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(testIntent, 0);
 
